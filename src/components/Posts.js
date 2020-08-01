@@ -1,37 +1,35 @@
-import React, {Component} from 'react';
-import Search from './components/Search';
-import PostLists from './components/PostLists';
+import React from "react";
+import { connect } from "react-redux";
 
-class Posts extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            posts: [],
-            searchField: ''
-        }
-    }
+import Search from "./Search";
+import PostLists from "./PostLists";
+import { searchPost } from "../redux/actions";
 
-    postSearch = (e) => {
-        e.preventDefault();
-        fetch("https://www.reddit.com/.json")
-        .query({q: this.state.searchField})
-        .then(res => res.json())
-        .then(data => data.children.data.map(data => data.data))
-        .catch(err =>console.log(err));
-    }
+const mapStateToProps = (state) => {
+  return {
+    search: state.search,
+  };
+};
 
-    handleSearch = (e) => {
-        this.setState({searchField: e.target.value})
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getPosts: (text) => dispatch(searchPost(text)),
+  };
+};
 
-    render() {
-        return(
-            <div>
-                <Search bookSearch={this.postSearch} handleSearch={this.handleSearch} />
-                <PostLists posts={this.state.posts}/>
-            </div>
-        )
-    }
-}
+const Posts = ({ search, getPosts }) => {
+  console.log("SEARCH: ", search);
+  const handleSearch = (e) => {
+    const text = e.target.value;
+    getPosts(text);
+  };
 
-export default Posts;
+  return (
+    <div>
+      <Search handleSearch={handleSearch} />
+      <PostLists posts={search.posts} />
+    </div>
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
