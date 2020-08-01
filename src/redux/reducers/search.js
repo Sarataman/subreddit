@@ -10,7 +10,7 @@ export const defaultSearchState = {
   loading: false,
 };
 
-export const searchPost = (state = defaultSearchState, action) => {
+export const search = (state = defaultSearchState, action) => {
   const type = action.type;
   switch (type) {
     case SEARCH_POST_SUCCESS:

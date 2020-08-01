@@ -1,10 +1,10 @@
-import React from 'react';
-import Search from './components/Search';
+import React from "react";
+import Posts from "./components/Posts";
 
 function App() {
   return (
     <div>
-      <Search />
+      <Posts />
     </div>
   );
 }

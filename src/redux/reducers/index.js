@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { searchPost } from "./search";
+import { search } from "./search";
 
 const allReducer = combineReducers({
-  searchPost,
+  search,
 });
 
 export default allReducer;

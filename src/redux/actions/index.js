@@ -5,14 +5,15 @@ export const SEARCH_POST_LOADING = "SEARCH_POST_LOADING";
 export const searchPost = (text) => {
   return (dispatch) => {
     dispatch(searchPostLoading());
-    fetch("https://www.reddit.com/.json")
-      .query({ q: text })
+    fetch(`https://www.reddit.com/.json?q=${text}`)
       .then((res) => res.json())
       .then((data) => {
-        const posts = data.children.data.map((data) => data.data);
+        console.log("Data-> ", data);
+        const posts = data.data.children.map((data) => data.data);
         dispatch(searchPostSuccess(posts));
       })
       .catch((err) => {
+        console.error(err);
         dispatch(searchPostFail(err.message));
       });
   };
