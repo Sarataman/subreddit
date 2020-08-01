@@ -8,7 +8,9 @@ const PostList = (props) => {
         return (
           <PostCard
             key={post.id}
-            image={""}
+            image={
+              "https://5starsloans.com/wp-content/uploads/2018/04/2019-08-21_13-45-18.png"
+            }
             title={post.title}
             date={post.created}
             upvotes={post.ups}
