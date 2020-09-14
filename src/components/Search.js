@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Search = (props) => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [mostToLeast, setMostToLeast] = useState(true);
+
+  const performSearch = (event) => {
+    event.preventDefault();
+    //validation goes here 👀
+    if (searchQuery === "") {
+      //error
+    } else {
+      //props.handleSearch(searchQuery, mostToLeast);
+    }
+
+    props.handleSearch(searchQuery, mostToLeast);
+  };
+
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-success mb-3">
@@ -16,7 +31,7 @@ const Search = (props) => {
               <input
                 type="text"
                 className="form-control mb-3 search-input"
-                onChange={props.handleSearch}
+                onChange={(event) => setSearchQuery(event.target.value)}
                 placeholder="Search for post..."
               />
             </div>
@@ -25,6 +40,8 @@ const Search = (props) => {
               <input
                 className="form-check-input ml-2"
                 type="radio"
+                checked={mostToLeast}
+                onChange={(event) => setMostToLeast(event.target.value)}
                 name="sortby"
                 value="most"
               />
@@ -34,6 +51,8 @@ const Search = (props) => {
               <input
                 className="form-check-input"
                 type="radio"
+                onChange={(event) => setMostToLeast(!event.target.value)}
+                checked={!mostToLeast}
                 name="sortby"
                 value="least"
               />
@@ -60,6 +79,7 @@ const Search = (props) => {
               type="submit"
               className="btn btn-success btn-block mt-4"
               id="search-btn"
+              onClick={performSearch}
             >
               Search
             </button>
