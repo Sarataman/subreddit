@@ -19,9 +19,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const Posts = ({ search, getPosts }) => {
   console.log("SEARCH: ", search);
-  const handleSearch = (e) => {
-    const text = e.target.value;
-    getPosts(text);
+  const handleSearch = (text, mostToLeastUpVotes) => {
+    getPosts(text, mostToLeastUpVotes);
   };
 
   return (
