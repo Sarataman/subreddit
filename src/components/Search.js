@@ -3,18 +3,19 @@ import React, { useState } from "react";
 const Search = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mostToLeast, setMostToLeast] = useState(true);
+  const [upvoteQuery, setUpvoteQuery] = useState("");
 
   const performSearch = (event) => {
     event.preventDefault();
-    //validation goes here 👀
+    //validation goes here 👀 
     if (searchQuery === "") {
+      alert('Search field is empty. Please fill search field to search for post')
       //error
     } else {
       //props.handleSearch(searchQuery, mostToLeast);
     }
-
-    props.handleSearch(searchQuery, mostToLeast);
-  };
+      props.handleSearch(searchQuery, mostToLeast, upvoteQuery)
+  }
 
   return (
     <div className="App">
@@ -26,7 +27,7 @@ const Search = (props) => {
       <div id="search-container" className="container">
         <div id="search" className="card card-body bg-light mb-2">
           <h4>Search</h4>
-          <form id="search-form" className="search" onSubmit={props.bookSearch}>
+          <form id="search-form" className="search">
             <div className="form-group search-form">
               <input
                 type="text"
@@ -70,9 +71,10 @@ const Search = (props) => {
               Number of UpVotes:
               <input
                 name="filter"
+                type="number"
                 id="votes"
                 className="form-control"
-                type="number"
+                onChange={(event) => setUpvoteQuery(event.target.value)}
               />
             </div>
             <button
@@ -85,6 +87,7 @@ const Search = (props) => {
             </button>
           </form>
         </div>
+        
         <div id="posts"></div>
       </div>
     </div>

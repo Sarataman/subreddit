@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.card-box, .App {
+  margin-bottom: 50px;
+}
+/* .card-box {
+  width: 30vw;
+} */
+/* @media only screen */
+
+.hidden {
+  display: none;
+}
+
+#loader {
+  border: 1.6rem solid white;
+  border-radius: 50%;
+  border-top: 1.6rem solid  #330f86;
+  width: 12rem;
+  height: 12rem;
+  animation: load 2s linear infinite;
+}
+
+@keyframes load {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}

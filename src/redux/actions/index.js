@@ -1,28 +1,30 @@
+import { trackPromise } from 'react-promise-tracker';
 export const SEARCH_POST_SUCCESS = "SEARCH_POST_SUCCESS";
 export const SEARCH_POST_FAIL = "SEARCH_POST_FAIL";
 export const SEARCH_POST_LOADING = "SEARCH_POST_LOADING";
 
 export const searchPost = (text, mostToLeastUpVotes = true) => {
   return (dispatch) => {
-    dispatch(searchPostLoading());
-    fetch(`https://www.reddit.com/.json?q=${text}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const posts = data.data.children.map((data) => data.data);
-        console.log("POSTS-> ", posts);
-        let sortedPosts = [];
-        if (mostToLeastUpVotes) {
-          sortedPosts = sortListDescending(posts, "ups");
-        } else {
-          sortedPosts = sortListAscending(posts, "ups");
-        }
-        console.log("SORTED POSTS-> ", sortedPosts);
-        dispatch(searchPostSuccess(sortedPosts));
-      })
-      .catch((err) => {
-        console.error(err);
-        dispatch(searchPostFail(err.message));
-      });
+    dispatch(searchPostLoading())
+    trackPromise(
+      fetch(`https://www.reddit.com/.json?q=${text}`)
+        .then((res) => res.json())
+        .then((data) => {
+          const posts = data.data.children.map((data) => data.data);
+          console.log("POSTS-> ", posts);
+          let sortedPosts = [];
+          if (mostToLeastUpVotes) {
+            sortedPosts = sortListDescending(posts, "ups");
+          } else {
+            sortedPosts = sortListAscending(posts, "ups");
+          }
+          console.log("SORTED POSTS-> ", sortedPosts);
+          dispatch(searchPostSuccess(sortedPosts));
+        })
+        .catch((err) => {
+          console.error(err);
+          dispatch(searchPostFail(err.message));
+        }));
   };
 };
 
