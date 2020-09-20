@@ -13,14 +13,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getPosts: (text) => dispatch(searchPost(text)),
+    getPosts: (text, mostToLeastUpVotes, posts) =>
+      dispatch(searchPost(text, mostToLeastUpVotes, posts)),
   };
 };
 
 const Posts = ({ search, getPosts }) => {
   console.log("SEARCH: ", search);
   const handleSearch = (text, mostToLeastUpVotes) => {
-    getPosts(text, mostToLeastUpVotes);
+    getPosts(text, mostToLeastUpVotes, search.posts);
   };
 
   return (
